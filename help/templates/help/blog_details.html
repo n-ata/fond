@@ -1,0 +1,83 @@
+
+{% extends "help/base.html" %}
+{% load static %}
+{% load static i18n %}
+{% load mathfilters %}
+{% load i18n %}
+{% load humanize %}
+
+{% block content %}
+    <main>
+
+        <div class="slider-area">
+            <div class="slider-height2 slider-bg2 d-flex align-items-center" style="background: url({{ home.banner.url }}); height: 400px;background-repeat: no-repeat;background-position: center center;background-size: cover;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-6 col-md-8">
+                            <div class="hero-caption hero-caption2">
+                                <h2>{{ bothers.blogdetails }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="blog_area single-post-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 posts-list">
+                        <div class="single-post">
+                            <div class="feature-img">
+                                <img class="img-fluid" src="{{ blog.banner.url }}" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                            </div>
+                            <div class="blog_details">
+                                <h2 style="color: #2d2d2d;">
+                                    {{ blog.title }}
+                                </h2>
+                                <p>
+                                    {{ blog.text|safe }}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar">
+                            
+                            <aside class="single_sidebar_widget newsletter_widget">
+                                <h4 class="widget_title" style="color: #2d2d2d;">{{ bothers.newsletter }}</h4>
+                                <form action="/subscribe" method="get">
+                                    <div class="form-group">
+                                        <input type="email" id="subscribeEmail" name="email" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ bothers.enteremail }}'" placeholder='{{ bothers.enteremail }}' required>
+                                    </div>
+                                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" id="subscribeButton" type="submit">{{ bothers.subscribe }}</button>
+                                </form>
+                            </aside>
+                            <aside class="single_sidebar_widget popular_post_widget">
+                                <h3 class="widget_title" style="color: #2d2d2d;">{{ bothers.recentposts }}</h3>
+                                {% for b in blogs %}
+                                    {% ifnotequal b.id blog.id %}
+                                        <div class="media post_item">
+                                            <img src="{{ b.banner.url }}" style="width: 100px;"
+                                                alt="post" data-pagespeed-url-hash="252005999" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                                            <div class="media-body">
+                                                <a href="blog-detail/{{ b.id }}">
+                                                    <h3 style="color: #2d2d2d;" >{{ b.text|safe|slice:":25" }}...</h3>
+                                                </a>
+                                                <p>{{ b.modified }}</p>
+                                            </div>
+                                        </div>
+                                {% endifnotequal %}
+
+                                {% endfor %}
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+{% endblock %}
