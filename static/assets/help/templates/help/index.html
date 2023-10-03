@@ -1,0 +1,174 @@
+
+{% extends "help/base.html" %}
+{% load static %}
+{% load static i18n %}
+{% load mathfilters %}
+{% load i18n %}
+{% load humanize %}
+
+{% block content %}
+    <main>
+
+        <div class="slider-area position-relative">
+            <div class="slider-active">
+
+                <div class="single-slider slider-height slider-bg1 d-flex align-items-center" style="background-image: url({{ home.banner.url }})">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-10">
+                                <div class="hero-caption">
+                                    <h1 data-animation="fadeInUp" data-delay=".2s">{{ home.title|safe}}</h1>
+                                    <P data-animation="fadeInUp" data-delay=".4s">{{ home.text|safe }}</P>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="about-area1 section-padding" id="{{ ids.1 }}">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xxl-5 col-xl-5 col-lg-6 col-md-9">
+                        <div class="about-caption about-caption2">
+
+                            <div class="section-tittle mb-25">
+                                <span>{{ others.aboutus }}</span>
+                                <h2>
+                                    {% blocktrans with about.title|safe as text %}
+													{{ text }} {% endblocktrans %}
+                                    </h2>
+                                <p class="mb-50 pt-20">{% blocktrans with about.text|safe as text %}
+													{{ text }} {% endblocktrans %}</p>
+                            </div>
+                            <a href="#" class="btn_01">{{ others.discoverme }}</a>
+                        </div>
+                    </div>
+                    <div class="offset-xxl-1 col-xxl-6 col-xl-7 col-lg-6 col-md-10">
+
+                        <div class="about-img about-img1  ">
+                            <img src="{{ about.banner.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="our-services-area section-img-bg section-padding mb-25" data-background="{% static 'assets/img/gallery/section-bg1.jpg' %}">
+            <div class="container">
+                <div class="row justify-content-center mb-25">
+                    <div class="col-xl-12">
+
+                        <div class="section-tittle section-tittle2 text-center">
+                            <span>{{ others.helpingtoday }}</span>
+                            <h2>{{ others.howwehelppeople }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    {% for help in helpings %}
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                            <div class="single-services1 text-center">
+                                <div class="services-ion">
+                                    <img src="{{ help.icon.url }}" alt="">
+                                </div>
+                                <div class="services-cap">
+                                    <h5><a href="#">{{ help.title|safe}}</a></h5>
+                                    <p>{{ help.text|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="class-offer-area fix" id="{{ ids.2 }}">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-center mb-25">
+                    <div class="col-xl-12">
+
+                        <div class="section-tittle text-center">
+                            <span>{{ others.programs }}</span>
+                            <h2>{{ others.ourdonationprograms }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="class-offer-active row">
+                    {% for fond in fonds %}
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="properties">
+                                <div class="properties__card">
+                                    <div class="properties__img">
+                                        <a href="#"><img src="{{ fond.banner.url }}" alt="" height="285px"></a>
+                                    </div>
+                                    <div class="properties__caption">
+                                        <h3><a href="#">{{ fond.title|safe }}</a></h3>
+                                        <p>
+                                            {{ fond.text|safe|slice:":85" }}...
+                                        </p>
+                                    </div>
+                                    <div class="properties__footer d-flex no-wrap justify-content-between align-items-center">
+                                        <div class="d-flex no-wrap col-md-6 justify-content-between">
+                                            <div class="class-day">
+                                                <span>${{ fond.goal|intcomma }}</span>
+                                                <p>Goal</p>
+                                            </div>
+                                            <div class="class-day mr-15">
+                                                <span>${{ fond.raised|intcomma }}</span>
+                                                <p>Raised</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 class-day d-flex">
+                                            <div class="input-group">
+                                              <input type="number" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" value="10.00" min="1.00">
+                                              <div class="input-group-append">
+                                                  <button class="btn_01 fond_btn" fondId="{{ fond.id }}">{{ others.donate }}</button>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="home-blog section-padding" id="{{ ids.3 }}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3">
+                        <div class="section-tittle mb-130">
+                            <span>{{ others.news }}</span>
+                            <h2>{{ others.latestblog }}</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-9 col-xl-9">
+                        <div class="blog-active">
+                            {% for blog in blogs %}
+                                <div class="single-blogs">
+                                    <div class="blog-img">
+                                        <img src="{{ blog.banner.url }}" height="285px" alt="">
+                                    </div>
+                                    <div class="blog-caption">
+                                        <h3><a href="#">{{ blog.title|safe }}</a></h3>
+                                        <p>{{ blog.text|safe|slice:":185" }}...</p>
+                                        <a href="blog-detail/{{ blog.id }}" class="browse-btn">{{ others.readmore }}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{#        <div class="map-are section-padding40" id="{{ ids.4 }}">#}
+{#            <div class="map">#}
+{#                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1786539269224!2d55.27218771500953!3d25.197196983896188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43348a67e24b%3A0xff45e502e1ceb7e2!2sBurj%20Khalifa!5e0!3m2!1sen!2sbd!4v1588690958350!5m2!1sen!2sbd"#}
+{#                    width="100%" height="500" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>#}
+{#            </div>#}
+{#        </div>#}
+    </main>
+
+{%endblock%}

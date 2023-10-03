@@ -1,0 +1,366 @@
+{% load static %}
+{% load static i18n %}
+{% load mathfilters %}
+{% load i18n %}
+{% load humanize %}
+{% get_current_language as LANGUAGE_CODE %}
+
+
+<!doctype html >
+<html class="no-js" lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Fond</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <style>
+        .lds-dual-ring {
+            display: inline-block;
+            position: fixed;
+            top: calc((100vh - 80px) / 2);
+            left: calc((100vw - 80px) / 2);
+            width: 80px;
+            height: 80px;
+        }
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            border-color: #fff transparent #fff transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="{{ ids.0 }}">
+        <div class="header-area header-transparent">
+            <div class="main-header ">
+                <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap position-relative">
+
+                            <div class="left-side d-flex align-items-center">
+                                <div class="logo">
+                                    <a href="/{{ LANGUAGE_CODE }}">
+                                        <img src="{% static 'assets/img/logo/xlogo2_footer.png.pagespeed.ic.uxJb2lF5Qw.webp' %}"
+                                            alt="" style="padding-top:15px; width: 250px"></a>
+                                </div>
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            {% for m in menu %}
+                                                <li><a href="/#{{m.href}}">{{ m.name }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="header-right-btn f-right  ml-15">
+                                <div class="header-btn2 d-none d-xxl-inline-block" style="width: 200px; display: inline;">
+                                    <select id="languages">
+                                        {% get_available_languages as languages %}
+                                            {% for lang_code, lang_name in languages %}
+                                                {% language lang_code %}
+                                                    <option value="{{ lang_code }}"  {% ifequal request.LANGUAGE_CODE lang_code %}selected="selected" {% endifequal %}">
+                                                        {{lang_name}}
+                                                    </option>
+                                                {% endlanguage %}
+                                            {% endfor %}
+                                    </select>
+                                </div>
+                                <a href="/#{{ ids.2 }}" class="btn_1 header-btn">
+                                    <i class="fas fa-heart"></i>
+
+                                    {{ others.makeadonation }}
+                                </a>
+                            </div>
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% block content %}
+        <!-- Content Goes here -->
+        {% endblock content %}
+    <div id="paymentContainer"><div id="payment"></div></div>
+    <footer id="{{ ids.4 }}">
+        <div class="footer-wrapper">
+            <div class="footer-area footer-padding">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-10">
+                            <div class="single-footer-caption mb-50">
+                                <div class="single-footer-caption mb-30">
+
+                                    <div class="footer-logo mb-25">
+                                        <a href="index.html"><img src="{% static 'assets/img/logo/xlogo2_footer.png.pagespeed.ic.uxJb2lF5Qw.webp' %}" alt="" width="200px"></a>
+                                    </div>
+                                    <div class="footer-tittle">
+                                        <div class="footer-pera">
+                                            <p>{{ others.footertext }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>{{ others.navigation }}</h4>
+                                    <ul>
+                                        {% for m in menu %}
+                                            <li><a href="/#{{ m.href }}">{{ m.name }}</a></li>
+
+
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>{{ others.contactus }}</h4>
+                                    <ul>
+                                        <li><a href="#">{{ others.address }}</a></li>
+                                        <li><a href="#">{{ others.email }}: hello@example-help.com</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>{{ others.support }}</h4>
+                                    <p>{{ others.supporttext }}</p>
+                                    <a href="/#{{ ids.2 }}" class="btn_1">{{ others.donate }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom-area">
+                <div class="container">
+                    <div class="footer-border">
+                        <div class="row">
+                            <div class="col-xl-12 ">
+                                <div class="footer-copy-right text-center">
+                                    <p>Copyright &copy;
+                                        <script>
+                                            document.write(new Date().getFullYear());
+                                        </script>
+                                        {{ others.copyright }}
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="spinner" style="display: none; position: fixed; top:0; left:0; z-index: 99999; width: 100vw; height: 100vh; background-color: #444; opacity: .7;">
+        <div class="lds-dual-ring"></div>
+    </div>
+    <div id="back-top">
+        <a title="Go to Top" href="#"><i class="fas fa-long-arrow-alt-up"></i></a>
+    </div>
+
+
+    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js+bootstrap.min.js.pagespeed.jc.UN9ZorBW7c.js' %}"></script>
+    <script>
+        eval(mod_pagespeed_jjf6qPvzZx);
+    </script>
+    <script>
+        eval(mod_pagespeed_zdD9KKJ_05);
+    </script>
+
+    <script src="{% static 'assets/js/owl.carousel.min.js+slick.min.js.pagespeed.jc.Zy5c0S8UfY.js' %}"></script>
+    <script>
+        eval(mod_pagespeed_knWVtoEuXJ);
+    </script>
+    <script>
+        eval(mod_pagespeed_NyJAc1p8G3);
+    </script>
+    <script src="{% static 'assets/js/jquery.slicknav.min.js+wow.min.js+jquery.magnific-popup.js+jquery.nice-select.min.js+jquery.counterup.min.js+waypoints.min.js+contact.js.pagespeed.jc.t0z7RT5rtN.js' %}"></script>
+    <script>
+        eval(mod_pagespeed_$R3voYB2sc);
+    </script>
+
+    <script>
+        eval(mod_pagespeed_BPFbkKWLuQ);
+    </script>
+    <script>
+        eval(mod_pagespeed_SrpRwTPnFZ);
+    </script>
+    <script>
+        eval(mod_pagespeed_BRvLR0$mIg);
+    </script>
+    <script>
+        eval(mod_pagespeed_KuJDPTvIir);
+    </script>
+    <script>
+        eval(mod_pagespeed_sZGLqrNZBW);
+    </script>
+
+    <script>
+        eval(mod_pagespeed_5dObTKyeD0);
+    </script>
+    <script src="{% static 'assets/js/jquery.form.js+jquery.validate.min.js+mail-script.js+jquery.ajaxchimp.min.js+plugins.js+main.js.pagespeed.jc.Rsk-arg4ED.js' %}"></script>
+    <script>
+        eval(mod_pagespeed_8c1B6$2Ye8);
+    </script>
+    <script>
+        eval(mod_pagespeed_FlmSmVFx5K);
+    </script>
+    <script>
+        eval(mod_pagespeed_vNRz6jSxEo);
+    </script>
+    <script>
+        eval(mod_pagespeed_bsgwYwOLcC);
+    </script>
+
+    <script>
+        eval(mod_pagespeed_syNpqzCHRg);
+    </script>
+    <script>
+        eval(mod_pagespeed_1jJgD_qheT);
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+    <script>
+        var handler = {
+            makeThings: 0,
+            otherStuff: 0
+        };
+        var globalHandler = new Proxy(handler, {
+            set: function(obj, prop, value) {
+                obj[prop] = value;
+                if (prop == "makeThings") {
+                    var observer = new MutationObserver(function(mutations) {
+                        if ($(".iyz-wrapper").length) {
+                            $('#spinner').css('display','none');
+                            observer.disconnect();
+                        }
+                    });
+                    // start observing
+                    observer.observe(document.body, {
+                        childList: true,
+                        subtree: true
+                    });
+                }
+                return true;
+            }
+        });
+        var ct = 1;
+        $( document ).ready(function() {
+            $('#languages option[value="{{ LANGUAGE_CODE }}"]').attr("selected",true);
+            $('.nice-select .current').each(function () {
+                {#$( this ).text();#}
+                {% get_language_info for LANGUAGE_CODE as lang %}
+                $(this).text("{{ lang.name_local }}");
+            });
+            $('.fond_btn').each(function(){
+
+                $(this).click(function(){
+                    $('#spinner').css('display','block');
+
+                    var payment_value = $(this).parent().prev('input').val();
+                    var fond_id = $(this).attr('fondId');
+
+                    $("#payment").html();
+
+                    globalHandler.makeThings = ct;
+                    ct += 1;
+
+                    $.ajax({
+                        type: "GET",
+                         url: "payment?fond_id="+fond_id.toString() + "&payment_value="+payment_value.toString(),
+
+                        beforeSend: function() {
+                                    {#$("#loading_indicator").show();#}
+                        },
+                        success: function(response) {
+                            $("#payment").html(response);
+
+
+                           $("#payment").find("script").each(function(){
+                             eval($(this).text());
+                            });
+                        },
+                        error: function(response){
+                            $('#spinner').css('display','none');
+                        }
+                    });
+                });
+            });
+            $('#subscribeButton').click(function () {
+                var email = $('#subscribeEmail').val();
+                $.ajax({
+                        type: "GET",
+                         url: "/subscribe?email="+email.toString(),
+
+                        beforeSend: function() {
+                                    {#$("#loading_indicator").show();#}
+                        },
+                        success: function(response) {
+
+                        },
+                        error: function(response){
+
+                        }
+                    });
+            });
+
+            $('#languages').change(function () {
+                if (window.location.href.indexOf("blog") > -1) {
+                  window.location = '/' +$('#languages').val() + '/blog-detail/'+'{{ blog.id }}';
+                }
+                else {
+                    window.location = '/' + $('#languages').val() + '/';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
